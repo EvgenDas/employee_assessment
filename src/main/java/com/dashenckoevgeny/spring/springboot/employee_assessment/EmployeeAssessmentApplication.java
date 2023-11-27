@@ -1,4 +1,4 @@
-package com.dashenckoevgeny.spring.springboot.employee_assessment.employee_assessment;
+package com.dashenckoevgeny.spring.springboot.employee_assessment;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

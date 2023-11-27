@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:3036/employees_db?currentSchema=employees_db
+    username: bestuser
+    password: bestuser
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      mode: always
+      continue-on-error: false
+#      data-locations: classpath:demo_data.sql
+server:
+  port: 8099
+
+security:
+  jwt:
+    secret: amZhbGRqZmFsa2ZqZGFzO2xramRza2xhamZsa2RzamZsaztkamtsc2FmbGtmamRsYWtzamZrbGFqZHNsa2ZhamxrO2RzZmxhZmphbGRrcw==
+    access: 3600000
+    refresh: 2592000000
