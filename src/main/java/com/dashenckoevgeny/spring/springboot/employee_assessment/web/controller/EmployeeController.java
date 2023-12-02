@@ -12,6 +12,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.Emp
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.EmployeeMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,11 +59,11 @@ public class EmployeeController {
     return assessmentMapper.toDto(assessments);
   }
 
-  @PostMapping("/{id}/assessments")
+  @PostMapping(value = "/{id}/assessments")
   public EmployeeAssessmentDto createAssessment(@PathVariable Integer id,
-      @Validated(OnCreate.class) EmployeeAssessmentDto dto) {
+      @Validated(OnCreate.class) @RequestBody EmployeeAssessmentDto dto) {
     EmployeeAssessment assessment = assessmentMapper.toEntity(dto);
-    EmployeeAssessment createdAssessment = assessmentService.create(assessment, id);
+    EmployeeAssessment createdAssessment = assessmentService.create(id, assessment);
     return assessmentMapper.toDto(createdAssessment);
   }
 }

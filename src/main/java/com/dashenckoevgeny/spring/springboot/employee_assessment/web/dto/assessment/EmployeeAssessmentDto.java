@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import lombok.Data;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
@@ -16,16 +17,16 @@ public class EmployeeAssessmentDto {
   @NotNull(message = "Id must be not null", groups = OnUpdate.class)
   private Integer id;
 
-  @NotNull(message = "Own assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
+//  @NotNull(message = "Own assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
   private Integer ownAssessment;
 
-  @NotNull(message = "Expert assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
+//  @NotNull(message = "Expert assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
   private Integer expertAssessment;
 
-  @NotNull(message = "Manager assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
+//  @NotNull(message = "Manager assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
   private Integer managerAssessment;
 
-  @NotNull(message = "Final assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
+//  @NotNull(message = "Final assessment must be not null", groups = {OnUpdate.class, OnCreate.class})
   private Integer finalAssessment;
 
   @DateTimeFormat(iso = ISO.TIME)

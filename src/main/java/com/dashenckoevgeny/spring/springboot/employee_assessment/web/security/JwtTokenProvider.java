@@ -1,7 +1,6 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.web.security;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Employee;
-import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Role;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exception.AccessDeniedException;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeService;

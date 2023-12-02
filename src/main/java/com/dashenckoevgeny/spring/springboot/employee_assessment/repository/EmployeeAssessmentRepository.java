@@ -3,15 +3,17 @@ package com.dashenckoevgeny.spring.springboot.employee_assessment.repository;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface EmployeeAssessmentRepository {
 
   Optional<EmployeeAssessment> findById(Integer id);
 
   List<EmployeeAssessment> findAllByEmployeeId(Integer id);
 
-  void assignToEmployeeById(Integer assessmentId, Integer employeeId);
+  void assignToEmployeeById(@Param("employeeId") Integer employeeId, @Param("assessmentId") Integer assessmentId);
 
   void update(EmployeeAssessment assessment);
 

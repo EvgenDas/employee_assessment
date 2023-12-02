@@ -6,11 +6,18 @@ spring:
     driver-class-name: org.postgresql.Driver
   sql:
     init:
-      mode: always
+      mode: never
       continue-on-error: false
 #      data-locations: classpath:demo_data.sql
+  liquibase:
+    change-log: classpath:liquibase/db.changelog.yaml
+    enabled: true
+    default-schema: employees_db
 server:
   port: 8099
+
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
 
 security:
   jwt:

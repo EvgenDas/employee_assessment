@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/vi/assessments")
+@RequestMapping("api/v1/assessments")
 @RequiredArgsConstructor
 @Validated
 public class EmployeeAssessmentController {

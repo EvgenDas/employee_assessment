@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeRepository">
+
+  <resultMap id="EmployeeResultMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Employee" autoMapping="false">
+    <id property="id" column="employee_id"/>
+    <result property="name" column="name"/>
+    <result property="surname" column="surname"/>
+    <result property="managerId" column="manager_id"/>
+    <result property="expertId" column="expert_id"/>
+    <result property="dateOfNextAssessment" column="employee_date_of_next_assessment"/>
+    <result property="login" column="login"/>
+    <result property="password" column="password"/>
+    <collection property="roles"
+      ofType="com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Role"
+      autoMapping="false">
+      <result property="name" column="employee_role"/>
+    </collection>
+    <collection property="employeeAssessments"
+      ofType="com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment"
+      resultMap="com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeAssessmentRepository.AssessmentResultMap"
+      autoMapping="false"/>
+  </resultMap>
+  
+  <select id="findById" resultMap="EmployeeResultMap">
+    select e.id as employee_id,
+    e.name as name,
+    e.surname as surname,
+    e.manager_id as manager_id,
+    e.expert_id as expert_id,
+    er.role as employee_role,
+    a.id as assessment_id,
+    a.own_assessment as own_assessment,
+    a.expert_assessment as expert_assessment,
+    a.manager_assessment as manager_assessment,
+    a.final_assessment as final_assessment,
+    a.date_of_assessment as date_of_assessment,
+    a.is_active as is_active,
+    e.date_of_next_assessment as employee_date_of_next_assessment,
+    e.login as login,
+    e.password as password
+    from employees e
+    LEFT JOIN employees_roles er on e.id = er.employee_id
+    LEFT JOIN employees_assessments ea on e.id = ea.employee_id
+    LEFT JOIN assessments a on ea.assessment_id = a.id
+    where e.id = #{id};
+  </select>
+
+  <select id="findByLogin" resultMap="EmployeeResultMap">
+    select e.id as employee_id,
+    e.name as name,
+    e.surname as surname,
+    e.manager_id as manager_id,
+    e.expert_id as expert_id,
+    er.role as employee_role,
+    a.id as assessment_id,
+    a.own_assessment as own_assessment,
+    a.expert_assessment as expert_assessment,
+    a.manager_assessment as manager_assessment,
+    a.final_assessment as final_assessment,
+    a.date_of_assessment as date_of_assessment,
+    a.is_active as is_active,
+    e.date_of_next_assessment as employee_date_of_next_assessment,
+    e.login as login,
+    e.password as password
+    from employees e
+    LEFT JOIN employees_roles er on e.id = er.employee_id
+    LEFT JOIN employees_assessments ea on e.id = ea.employee_id
+    LEFT JOIN assessments a on ea.assessment_id = a.id
+    where e.login = #{login};
+  </select>
+  
+  <update id="update">
+    UPDATE employees
+    SET name = #{name},
+    surname = #{surname},
+    manager_id = #{managerId},
+    expert_id = #{expertId},
+    login = #{login},
+    password = #{password}
+    WHERE id = #{id}
+  </update>
+  
+  <insert id="create" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    INSERT INTO employees (name, surname, manager_id, expert_id, login, password)
+    VALUES (#{name}, #{surname}, #{managerId}, #{expertId}, #{login}, #{password})
+  </insert>
+  
+  <insert id="insertEmployeeRole">
+    INSERT INTO employees_roles (employee_id, role)
+    VALUES (#{employeeId}, #{role})
+  </insert>
+  
+  <select id="isAssessmentOwner" resultType="boolean">
+    select exists (
+    select 1
+    from employees_assessments
+    where employee_id = #{employeeId}
+    and assessment_id = #{assessmentId}
+    )
+  </select>
+  
+  <delete id="delete">
+    DELETE FROM employees
+    WHERE id = #{id}
+  </delete>
+
+</mapper>

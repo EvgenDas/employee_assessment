@@ -11,8 +11,8 @@ public interface EmployeeAssessmentService {
 
   EmployeeAssessment update(EmployeeAssessment assessment);
 
-  EmployeeAssessment create(EmployeeAssessment assessment, Integer id);
+  EmployeeAssessment create(Integer employeeId, EmployeeAssessment assessment);
 
-  EmployeeAssessment delete(Integer id);
+  void delete(Integer id);
 
 }
