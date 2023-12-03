@@ -20,11 +20,10 @@ public class JwtEntityFactory {
     );
   }
 
-  private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> roles) {
+  private static List<GrantedAuthority> mapToGrantedAuthorities(final List<Role> roles) {
     return roles.stream()
         .map(Enum::name)
         .map(SimpleGrantedAuthority::new)
         .collect(Collectors.toList());
   }
-
 }

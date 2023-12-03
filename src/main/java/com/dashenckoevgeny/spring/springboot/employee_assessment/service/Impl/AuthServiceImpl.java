@@ -9,8 +9,6 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.Jw
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,15 +20,11 @@ public class AuthServiceImpl implements AuthService {
   private final JwtTokenProvider jwtTokenProvider;
 
   @Override
-  public JwtResponse login(JwtRequest loginRequest) {
+  public JwtResponse login(final JwtRequest loginRequest){
     JwtResponse jwtResponse = new JwtResponse();
-    try {
-      authenticationManager.authenticate(
-          new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),
-              loginRequest.getPassword()));
-    } catch (AuthenticationException e) {
-      System.out.println(e);
-    }
+    authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),
+            loginRequest.getPassword()));
     Employee employee = employeeService.getByLogin(loginRequest.getLogin());
     jwtResponse.setId(employee.getId());
     jwtResponse.setUsername(employee.getLogin());

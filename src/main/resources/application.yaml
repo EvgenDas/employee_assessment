@@ -8,7 +8,6 @@ spring:
     init:
       mode: never
       continue-on-error: false
-#      data-locations: classpath:demo_data.sql
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
@@ -24,3 +23,6 @@ security:
     secret: amZhbGRqZmFsa2ZqZGFzO2xramRza2xhamZsa2RzamZsaztkamtsc2FmbGtmamRsYWtzamZrbGFqZHNsa2ZhamxrO2RzZmxhZmphbGRrcw==
     access: 3600000
     refresh: 2592000000
+
+springdoc:
+  override-with-generic-response: false

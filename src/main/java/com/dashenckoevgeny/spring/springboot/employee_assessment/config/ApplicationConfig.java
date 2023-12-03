@@ -2,10 +2,13 @@ package com.dashenckoevgeny.spring.springboot.employee_assessment.config;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.JwtTokenFilter;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.JwtTokenProvider;
-import java.security.Security;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import io.swagger.v3.oas.models.security.SecurityScheme.Type;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
-import org.apache.catalina.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +18,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,21 +39,40 @@ public class ApplicationConfig {
   }
 
   @Bean
-  public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+  public AuthenticationManager authenticationManager(final AuthenticationConfiguration configuration)
       throws Exception {
     return configuration.getAuthenticationManager();
   }
 
   @Bean
+  public OpenAPI openAPI() {
+    return new OpenAPI()
+        .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+        .components(
+            new Components()
+                .addSecuritySchemes("bearerAuth",
+                    new SecurityScheme()
+                        .type(Type.HTTP)
+                        .scheme("bearer")
+                        .bearerFormat("JWT")
+                )
+        )
+        .info(new Info()
+            .title("Employee assessment API")
+            .description("Spring Boot application")
+            .version("1.0"));
+  }
+
+  @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
     httpSecurity
-        .csrf().disable()
-        .cors()
-        .and()
-        .httpBasic().disable()// отключает базовую аутентификацию
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(AbstractHttpConfigurer::disable)
+        .httpBasic(AbstractHttpConfigurer::disable)// отключает базовую аутентификацию
+        .sessionManagement(sessionManagement ->
+            sessionManagement
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        )
         .exceptionHandling()
         .authenticationEntryPoint(((request, response, authException) -> {
           response.setStatus(HttpStatus.UNAUTHORIZED.value());
@@ -62,9 +85,11 @@ public class ApplicationConfig {
         .and()
         .authorizeHttpRequests()
         .requestMatchers("/api/v1/auth/**").permitAll()
+        .requestMatchers("/swagger-ui/**").permitAll()
+        .requestMatchers("/v3/api-docs/**").permitAll()
         .anyRequest().authenticated()
         .and()
-        .anonymous().disable()
+        .anonymous(AbstractHttpConfigurer::disable)
         .addFilterBefore(new JwtTokenFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
     return httpSecurity.build();
 

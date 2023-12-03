@@ -12,6 +12,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import java.security.Key;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -38,16 +40,15 @@ public class JwtTokenProvider {
     this.key = Keys.hmacShaKeyFor(jwtProperties.getSecret().getBytes());
   }
 
-  public String createAccessToken(int userId, String username, Set<Role> roles) {
+  public String createAccessToken(final int userId, final String username, final Set<Role> roles){
     Claims claims = Jwts.claims().setSubject(username);
     claims.put("id", userId);
     claims.put("roles", resolveRoles(roles));
-    Date now = new Date();
-    Date validity = new Date(now.getTime() + jwtProperties.getAccess());
+    Instant validity = Instant.now()
+        .plus(jwtProperties.getAccess(), ChronoUnit.HOURS);
     return Jwts.builder()
         .setClaims(claims)
-        .setIssuedAt(now)
-        .setExpiration(validity)
+        .setExpiration(Date.from(validity))
         .signWith(key)
         .compact();
   }
@@ -58,15 +59,14 @@ public class JwtTokenProvider {
         .collect(Collectors.toList());
   }
 
-  public String createRefreshToken(int userId, String username) {
+  public String createRefreshToken(final int userId, final String username) {
     Claims claims = Jwts.claims().setSubject(username);
     claims.put("id", userId);
-    Date now = new Date();
-    Date validity = new Date(now.getTime() + jwtProperties.getRefresh());
+    Instant validity = Instant.now()
+        .plus(jwtProperties.getAccess(), ChronoUnit.HOURS);
     return Jwts.builder()
         .setClaims(claims)
-        .setIssuedAt(now)
-        .setExpiration(validity)
+        .setExpiration(Date.from(validity))
         .signWith(key)
         .compact();
   }
