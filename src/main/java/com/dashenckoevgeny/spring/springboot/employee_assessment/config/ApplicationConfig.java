@@ -2,6 +2,7 @@ package com.dashenckoevgeny.spring.springboot.employee_assessment.config;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.JwtTokenFilter;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.JwtTokenProvider;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.expression.CustomSecurityExpressionHandler;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -14,8 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -28,6 +33,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor(onConstructor = @__(@Lazy))
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationConfig {
 
   private final JwtTokenProvider jwtTokenProvider;
@@ -42,6 +48,13 @@ public class ApplicationConfig {
   public AuthenticationManager authenticationManager(final AuthenticationConfiguration configuration)
       throws Exception {
     return configuration.getAuthenticationManager();
+  }
+
+  @Bean
+  public MethodSecurityExpressionHandler expressionHandler() {
+    DefaultMethodSecurityExpressionHandler expressionHandler = new CustomSecurityExpressionHandler();
+    expressionHandler.setApplicationContext(applicationContext);
+    return expressionHandler;
   }
 
   @Bean

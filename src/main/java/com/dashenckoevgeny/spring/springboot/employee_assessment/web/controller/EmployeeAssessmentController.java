@@ -8,6 +8,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.Emp
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class EmployeeAssessmentController {
 
   @PutMapping
   @Operation(summary = "Update EmployeeAssessmentDto")
+  @PreAuthorize("canAccessAssessment(#dto.id)")
   public EmployeeAssessmentDto update(@Validated(OnUpdate.class) @RequestBody EmployeeAssessmentDto dto) {
     EmployeeAssessment assessment = assessmentMapper.toEntity(dto);
     EmployeeAssessment updatedAssessment = assessmentService.update(assessment);
@@ -38,6 +40,7 @@ public class EmployeeAssessmentController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Get EmployeeAssessmentDto by id")
+  @PreAuthorize("canAccessAssessment(#id)")
   public EmployeeAssessmentDto getById(@PathVariable Integer id) {
     EmployeeAssessment assessment = assessmentService.getById(id);
     return assessmentMapper.toDto(assessment);
@@ -45,6 +48,7 @@ public class EmployeeAssessmentController {
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete assessment by id")
+  @PreAuthorize("canAccessAssessment(#id)")
   public void deleteById(@PathVariable Integer id) {
     assessmentService.delete(id);
   }

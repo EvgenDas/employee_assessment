@@ -14,7 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +40,7 @@ public class EmployeeController {
 
   @PutMapping
   @Operation(summary = "Update employee")
+  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#dto.id)")
   public EmployeeDto update(@Validated(OnUpdate.class) @RequestBody EmployeeDto dto) {
     Employee employee = employeeMapper.toEntity(dto);
     Employee updatedEmployee = employeeService.update(employee);
@@ -48,6 +49,7 @@ public class EmployeeController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Get EmployeeDto by id")
+  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#id)")
   public EmployeeDto getById(@PathVariable Integer id) {
     Employee employee = employeeService.getById(id);
     return employeeMapper.toDto(employee);
@@ -55,12 +57,14 @@ public class EmployeeController {
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete Employee by id")
+  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#id)")
   public void deleteById(@PathVariable Integer id) {
     employeeService.delete(id);
   }
 
   @GetMapping("/{id}/assessments")
   @Operation(summary = "Get all Employee assessments")
+  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#id)")
   public List<EmployeeAssessmentDto> getAssessmentsByUserId(@PathVariable Integer id) {
     List<EmployeeAssessment> assessments = assessmentService.getAllByEmployeeId(id);
     return assessmentMapper.toDto(assessments);
@@ -68,6 +72,7 @@ public class EmployeeController {
 
   @PostMapping(value = "/{id}/assessments")
   @Operation(summary = "Add assessment to employee")
+  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#id)")
   public EmployeeAssessmentDto createAssessment(@PathVariable Integer id,
       @Validated(OnCreate.class) @RequestBody EmployeeAssessmentDto dto) {
     EmployeeAssessment assessment = assessmentMapper.toEntity(dto);

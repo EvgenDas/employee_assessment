@@ -1,4 +1,4 @@
-package com.dashenckoevgeny.spring.springboot.employee_assessment.service.Impl;
+package com.dashenckoevgeny.spring.springboot.employee_assessment.service.impl;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Employee;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.AuthService;

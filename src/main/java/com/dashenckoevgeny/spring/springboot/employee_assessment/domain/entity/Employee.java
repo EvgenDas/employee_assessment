@@ -1,5 +1,6 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class Employee {
+public class Employee implements Serializable {
 
   private int id;
 
