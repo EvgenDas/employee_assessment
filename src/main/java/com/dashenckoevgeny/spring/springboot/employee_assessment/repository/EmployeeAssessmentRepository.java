@@ -1,6 +1,7 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.repository;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
@@ -20,5 +21,7 @@ public interface EmployeeAssessmentRepository {
   void create(EmployeeAssessment assessment);
 
   void delete(Integer id);
+
+  void updateOwnAssessment(OwnAssessmentDto assessment);
 
 }

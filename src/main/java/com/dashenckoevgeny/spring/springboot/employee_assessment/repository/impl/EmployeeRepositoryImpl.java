@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -95,6 +96,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         from employees_assessments
         where employee_id = ?
         and assessment_id = ?
+      )
+      """;
+
+  private final String IS_EMPLOYEES_MANAGER = """
+      select exists (
+        select 1
+        from employees
+        where id = ?
+        and manager_id = ?
       )
       """;
 
@@ -203,6 +213,38 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
       throw new ResourceMappingException(
           "Exception while checking if employee is assessment owner");
     }
+  }
+
+  @Override
+  public boolean isEmployeesManager(Integer employeeId, Integer managerId) {
+    try {
+      Connection connection = dataSourceConfig.getConnection();
+      PreparedStatement statement = connection.prepareStatement(IS_EMPLOYEES_MANAGER);
+      statement.setInt(1, employeeId);
+      statement.setInt(2, managerId);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        resultSet.next();
+        return resultSet.getBoolean(1);
+      }
+    } catch (SQLException e) {
+      throw new ResourceMappingException(
+          "Exception while checking if it is employees manager");
+    }
+  }
+
+  @Override
+  public boolean isEmployeesExpert(Integer employeeId, Integer expertId) {
+    return false;
+  }
+
+  @Override
+  public List<Employee> findAllEmployeesByManager(Integer id) {
+    return null;
+  }
+
+  @Override
+  public List<Employee> findAllEmployeesByExpert(Integer id) {
+    return null;
   }
 
   @Override

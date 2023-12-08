@@ -5,6 +5,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exceptio
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.DataSourceConfig;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeAssessmentRepository;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.mappers.AssessmentRowMapper;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -176,4 +177,11 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
       throw new ResourceMappingException("Error while deleting to employee.");
     }
   }
+
+  @Override
+  public void updateOwnAssessment(OwnAssessmentDto assessment) {
+
+  }
+
+
 }

@@ -10,6 +10,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.validat
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.EmployeeMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,7 @@ public class AuthController {
   }
 
   @PostMapping("/register")
+  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
   public EmployeeDto register(@Validated(OnCreate.class) @RequestBody final EmployeeDto employeeDto) {
     Employee employee = employeeMapper.toEntity(employeeDto);
     Employee createdEmployee = employeeService.create(employee);

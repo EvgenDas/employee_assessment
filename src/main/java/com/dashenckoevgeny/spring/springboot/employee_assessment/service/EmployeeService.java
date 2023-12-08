@@ -1,9 +1,7 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.service;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Employee;
-import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
 import java.util.List;
-import java.util.Optional;
 
 public interface EmployeeService {
 
@@ -16,6 +14,14 @@ public interface EmployeeService {
   Employee create(Employee employee);
 
   boolean isAssessmentOwner(Integer employeeId, Integer assessmentId);
+
+  boolean isEmployeesManager(Integer employeeId, Integer managerId);
+
+  boolean isEmployeesExpert(Integer employeeId, Integer expertId);
+
+  List<Employee> getAllEmployeesByManager(Integer id);
+
+  List<Employee> getAllEmployeesByExpert(Integer id);
 
   void delete(Integer id);
 

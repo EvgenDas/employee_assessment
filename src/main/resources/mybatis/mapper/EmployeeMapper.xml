@@ -102,6 +102,73 @@
     and assessment_id = #{assessmentId}
     )
   </select>
+
+  <select id="isEmployeesManager" resultType="boolean">
+    select exists (
+    select 1
+    from employees
+    where id = #{employeeId}
+    and manager_id = #{managerId}
+    )
+  </select>
+
+  <select id="isEmployeesExpert" resultType="boolean">
+    select exists (
+    select 1
+    from employees
+    where id = #{employeeId}
+    and expert_id = #{expertId}
+    )
+  </select>
+
+  <select id="findAllEmployeesByManager" resultMap="EmployeeResultMap">
+    select e.id as employee_id,
+    e.name as name,
+    e.surname as surname,
+    e.manager_id as manager_id,
+    e.expert_id as expert_id,
+    er.role as employee_role,
+    a.id as assessment_id,
+    a.own_assessment as own_assessment,
+    a.expert_assessment as expert_assessment,
+    a.manager_assessment as manager_assessment,
+    a.final_assessment as final_assessment,
+    a.date_of_assessment as date_of_assessment,
+    a.is_active as is_active,
+    e.date_of_next_assessment as employee_date_of_next_assessment,
+    e.login as login,
+    e.password as password
+    from employees e
+    LEFT JOIN employees_roles er on e.id = er.employee_id
+    LEFT JOIN employees_assessments ea on e.id = ea.employee_id
+    LEFT JOIN assessments a on ea.assessment_id = a.id
+    where e.manager_id = #{id};
+  </select>
+
+  <select id="findAllEmployeesByExpert" resultMap="EmployeeResultMap">
+    select e.id as employee_id,
+    e.name as name,
+    e.surname as surname,
+    e.manager_id as manager_id,
+    e.expert_id as expert_id,
+    er.role as employee_role,
+    a.id as assessment_id,
+    a.own_assessment as own_assessment,
+    a.expert_assessment as expert_assessment,
+    a.manager_assessment as manager_assessment,
+    a.final_assessment as final_assessment,
+    a.date_of_assessment as date_of_assessment,
+    a.is_active as is_active,
+    e.date_of_next_assessment as employee_date_of_next_assessment,
+    e.login as login,
+    e.password as password
+    from employees e
+    LEFT JOIN employees_roles er on e.id = er.employee_id
+    LEFT JOIN employees_assessments ea on e.id = ea.employee_id
+    LEFT JOIN assessments a on ea.assessment_id = a.id
+    where e.expert_id = #{id};
+  </select>
+
   
   <delete id="delete">
     DELETE FROM employees

@@ -14,6 +14,14 @@
     <result property="dateOfAssessment" column="date_of_assessment"/>
     <result property="isActive" column="is_active"/>
   </resultMap>
+
+  <resultMap id="OwnResultMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto" autoMapping="false">
+    <result property="ownAssessment" column="own_assessment"/>
+  </resultMap>
+
+  <resultMap id="ManagerAssessmentMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto" autoMapping="false">
+    <result property="managerAssessment" column="manager_assessment"/>
+  </resultMap>
   
   <select id="findById" resultMap="AssessmentResultMap">
     select t.id as assessment_id,
@@ -60,6 +68,12 @@
     INSERT INTO assessments (own_assessment, expert_assessment, manager_assessment, final_assessment, date_of_assessment, is_active)
     VALUES (#{ownAssessment}, #{expertAssessment}, #{managerAssessment}, #{finalAssessment}, #{dateOfAssessment}, #{isActive})
   </insert>
+
+  <update id="updateOwnAssessment" >
+    UPDATE assessments
+    SET own_assessment = #{ownAssessment}
+    WHERE id = #{id}
+  </update>
 
   <delete id="delete">
     DELETE FROM assessments

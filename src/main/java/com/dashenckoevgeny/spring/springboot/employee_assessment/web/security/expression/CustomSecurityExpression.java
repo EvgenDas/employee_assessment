@@ -1,5 +1,6 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.expression;
 
+import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Employee;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Role;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeService;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.security.JwtEntity;
@@ -19,8 +20,23 @@ public class CustomSecurityExpression {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtEntity employee = (JwtEntity) authentication.getPrincipal();
     int employeeId = employee.getId();
+    return employeeId == id || employeeService.isEmployeesManager(id, employeeId) || employeeService.isEmployeesExpert(id, employeeId)
+        || hasAnyRole(authentication, Role.ROLE_ADMIN);
+  }
+
+  public boolean canAccessEmployeeOnlyForManagerAndExpert(int id) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    JwtEntity employee = (JwtEntity) authentication.getPrincipal();
+    int employeeId = employee.getId();
     return employeeId == id || hasAnyRole(authentication, Role.ROLE_ADMIN);
   }
+
+
+  public boolean createOnlyForAdmin() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    return hasAnyRole(authentication, Role.ROLE_ADMIN);
+  }
+
 
 
 
@@ -38,8 +54,15 @@ public class CustomSecurityExpression {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtEntity employee = (JwtEntity) authentication.getPrincipal();
     int id = employee.getId();
-    return employeeService.isAssessmentOwner(id, assessmentId);
+    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication, Role.ROLE_ADMIN);
     // понять, как разрешить доступ manager and expert
+  }
+
+  public boolean canAccessOwnAssessment(int assessmentId) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    JwtEntity employee = (JwtEntity) authentication.getPrincipal();
+    int id = employee.getId();
+    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication, Role.ROLE_ADMIN);
   }
 
 }

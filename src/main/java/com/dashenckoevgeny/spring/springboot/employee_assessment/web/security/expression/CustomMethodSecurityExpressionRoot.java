@@ -63,7 +63,13 @@ public class CustomMethodSecurityExpressionRoot extends SecurityExpressionRoot i
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtEntity employee = (JwtEntity) authentication.getPrincipal();
     int id = employee.getId();
-    return employeeService.isAssessmentOwner(id, assessmentId);
-    // понять, как разрешить доступ manager and expert
+    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication, Role.ROLE_ADMIN);
+  }
+
+  public boolean canAccessOwnAssessment(int assessmentId) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    JwtEntity employee = (JwtEntity) authentication.getPrincipal();
+    int id = employee.getId();
+    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication, Role.ROLE_ADMIN);
   }
 }

@@ -3,15 +3,18 @@ package com.dashenckoevgeny.spring.springboot.employee_assessment.web.controller
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeAssessmentService;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.EmployeeAssessmentDto;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.validation.OnUpdate;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.EmployeeAssessmentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +34,7 @@ public class EmployeeAssessmentController {
 
   @PutMapping
   @Operation(summary = "Update EmployeeAssessmentDto")
-  @PreAuthorize("canAccessAssessment(#dto.id)")
+  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
   public EmployeeAssessmentDto update(@Validated(OnUpdate.class) @RequestBody EmployeeAssessmentDto dto) {
     EmployeeAssessment assessment = assessmentMapper.toEntity(dto);
     EmployeeAssessment updatedAssessment = assessmentService.update(assessment);
@@ -46,9 +49,16 @@ public class EmployeeAssessmentController {
     return assessmentMapper.toDto(assessment);
   }
 
+  @PatchMapping("/own/{id}")
+  @Operation(summary = "Update EmployeeAssessmentDto")
+  @PreAuthorize("@customSecurityExpression.canAccessAssessment(#dto.id)")
+  public OwnAssessmentDto updateOwnAssessment(@PathVariable Integer id, @RequestBody OwnAssessmentDto dto) {
+    return assessmentService.updateOwnAssessment(dto);
+  }
+
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete assessment by id")
-  @PreAuthorize("canAccessAssessment(#id)")
+  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
   public void deleteById(@PathVariable Integer id) {
     assessmentService.delete(id);
   }

@@ -5,6 +5,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.R
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exception.ResourceNotFoundException;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeRepository;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeService;
+import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
@@ -73,6 +74,30 @@ public class EmployeeServiceImpl implements EmployeeService {
   @Cacheable(value = "EmployeeService::isAssessmentOwner", key = "#employeeId + '.' + #assessmentId")
   public boolean isAssessmentOwner(Integer employeeId, Integer assessmentId) {
     return employeeRepository.isAssessmentOwner(employeeId, assessmentId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public boolean isEmployeesManager(Integer employeeId, Integer managerId) {
+    return employeeRepository.isEmployeesManager(employeeId, managerId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public boolean isEmployeesExpert(Integer employeeId, Integer expertId) {
+    return employeeRepository.isEmployeesExpert(employeeId, expertId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<Employee> getAllEmployeesByManager(Integer id) {
+    return employeeRepository.findAllEmployeesByManager(id);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<Employee> getAllEmployeesByExpert(Integer id) {
+    return employeeRepository.findAllEmployeesByExpert(id);
   }
 
   @Override

@@ -4,12 +4,12 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.E
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exception.ResourceNotFoundException;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeAssessmentRepository;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeAssessmentService;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +41,7 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
     return assessment;
   }
 
+
   @Override
   @Transactional
   @Cacheable(value = "EmployeeAssessmentService::getById", key = "#assessment.id")
@@ -48,6 +49,13 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
     assessment.setActive(true);
     employeeAssessmentRepository.create(assessment);
     employeeAssessmentRepository.assignToEmployeeById(employeeId, assessment.getId());
+    return assessment;
+  }
+
+  @Override
+  @Transactional
+  public OwnAssessmentDto updateOwnAssessment(OwnAssessmentDto assessment) {
+    employeeAssessmentRepository.updateOwnAssessment(assessment);
     return assessment;
   }
 
