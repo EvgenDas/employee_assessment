@@ -22,6 +22,10 @@
   <resultMap id="ManagerAssessmentMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto" autoMapping="false">
     <result property="managerAssessment" column="manager_assessment"/>
   </resultMap>
+
+  <resultMap id="ExpertAssessmentMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto" autoMapping="false">
+    <result property="expertAssessment" column="expert_assessment"/>
+  </resultMap>
   
   <select id="findById" resultMap="AssessmentResultMap">
     select t.id as assessment_id,
@@ -72,6 +76,18 @@
   <update id="updateOwnAssessment" >
     UPDATE assessments
     SET own_assessment = #{ownAssessment}
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateManagerAssessment" >
+    UPDATE assessments
+    SET manager_assessment = #{managerAssessment}
+    WHERE id = #{id}
+  </update>
+
+  <update id="updateExpertAssessment" >
+    UPDATE assessments
+    SET expert_assessment = #{expertAssessment}
     WHERE id = #{id}
   </update>
 

@@ -20,7 +20,8 @@ public class CustomSecurityExpression {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtEntity employee = (JwtEntity) authentication.getPrincipal();
     int employeeId = employee.getId();
-    return employeeId == id || employeeService.isEmployeesManager(id, employeeId) || employeeService.isEmployeesExpert(id, employeeId)
+    return employeeId == id || employeeService.isEmployeesManager(id, employeeId)
+        || employeeService.isEmployeesExpert(id, employeeId)
         || hasAnyRole(authentication, Role.ROLE_ADMIN);
   }
 
@@ -38,12 +39,10 @@ public class CustomSecurityExpression {
   }
 
 
-
-
   private boolean hasAnyRole(Authentication authentication, Role... roles) {
     for (Role role : roles) {
       SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
-      if(authentication.getAuthorities().contains(authority)) {
+      if (authentication.getAuthorities().contains(authority)) {
         return true;
       }
     }
@@ -54,15 +53,34 @@ public class CustomSecurityExpression {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtEntity employee = (JwtEntity) authentication.getPrincipal();
     int id = employee.getId();
-    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication, Role.ROLE_ADMIN);
-    // понять, как разрешить доступ manager and expert
+    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication,
+        Role.ROLE_ADMIN);
   }
 
   public boolean canAccessOwnAssessment(int assessmentId) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     JwtEntity employee = (JwtEntity) authentication.getPrincipal();
     int id = employee.getId();
-    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication, Role.ROLE_ADMIN);
+    return employeeService.isAssessmentOwner(id, assessmentId) || hasAnyRole(authentication,
+        Role.ROLE_ADMIN);
+  }
+
+  public boolean canAccessManagerAssessment(int assessmentId) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    JwtEntity employee = (JwtEntity) authentication.getPrincipal();
+    int id = employee.getId();
+    return hasAnyRole(authentication, Role.ROLE_ADMIN)
+        || (hasAnyRole(authentication, Role.ROLE_MANAGER)
+        && employeeService.isEmployeeManagerByAssessment(id, assessmentId));
+  }
+
+  public boolean canAccessExpertAssessment(int assessmentId) {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    JwtEntity employee = (JwtEntity) authentication.getPrincipal();
+    int id = employee.getId();
+    return hasAnyRole(authentication, Role.ROLE_ADMIN)
+        || (hasAnyRole(authentication, Role.ROLE_EXPERT)
+        && employeeService.isEmployeeExpertByAssessment(id, assessmentId));
   }
 
 }

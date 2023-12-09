@@ -238,6 +238,16 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
   }
 
   @Override
+  public boolean isEmployeeManagerByAssessment(Integer managerId, Integer assessmentId) {
+    return false;
+  }
+
+  @Override
+  public boolean isEmployeeExpertByAssessment(Integer expertId, Integer assessmentId) {
+    return false;
+  }
+
+  @Override
   public List<Employee> findAllEmployeesByManager(Integer id) {
     return null;
   }

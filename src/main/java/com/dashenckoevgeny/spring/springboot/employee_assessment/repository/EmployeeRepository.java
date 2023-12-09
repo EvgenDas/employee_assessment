@@ -20,16 +20,24 @@ public interface EmployeeRepository {
 
   void insertEmployeeRole(@Param("employeeId") Integer employeeId, @Param("role") Role role);
 
-  boolean isAssessmentOwner(@Param("employeeId") Integer employeeId, @Param("assessmentId") Integer assessmentId);
+  boolean isAssessmentOwner(@Param("employeeId") Integer employeeId,
+      @Param("assessmentId") Integer assessmentId);
 
-  boolean isEmployeesManager(@Param("employeeId") Integer employeeId, @Param("managerId") Integer managerId);
+  boolean isEmployeesManager(@Param("employeeId") Integer employeeId,
+      @Param("managerId") Integer managerId);
 
-  boolean isEmployeesExpert(@Param("employeeId") Integer employeeId, @Param("expertId") Integer expertId);
+  boolean isEmployeesExpert(@Param("employeeId") Integer employeeId,
+      @Param("expertId") Integer expertId);
+
+  boolean isEmployeeManagerByAssessment(@Param("managerId") Integer managerId,
+      @Param("assessmentId") Integer assessmentId);
+
+  boolean isEmployeeExpertByAssessment(@Param("expertId") Integer expertId,
+      @Param("assessmentId") Integer assessmentId);
 
   List<Employee> findAllEmployeesByManager(Integer id);
 
   List<Employee> findAllEmployeesByExpert(Integer id);
-
 
   void delete(Integer id);
 }

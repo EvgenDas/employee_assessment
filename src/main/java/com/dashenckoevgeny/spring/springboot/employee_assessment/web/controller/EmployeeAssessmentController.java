@@ -3,13 +3,14 @@ package com.dashenckoevgeny.spring.springboot.employee_assessment.web.controller
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeAssessmentService;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.EmployeeAssessmentDto;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.validation.OnUpdate;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.EmployeeAssessmentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,14 +33,6 @@ public class EmployeeAssessmentController {
 
   private final EmployeeAssessmentMapper assessmentMapper;
 
-  @PutMapping
-  @Operation(summary = "Update EmployeeAssessmentDto")
-  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
-  public EmployeeAssessmentDto update(@Validated(OnUpdate.class) @RequestBody EmployeeAssessmentDto dto) {
-    EmployeeAssessment assessment = assessmentMapper.toEntity(dto);
-    EmployeeAssessment updatedAssessment = assessmentService.update(assessment);
-    return assessmentMapper.toDto(updatedAssessment);
-  }
 
   @GetMapping("/{id}")
   @Operation(summary = "Get EmployeeAssessmentDto by id")
@@ -50,10 +43,37 @@ public class EmployeeAssessmentController {
   }
 
   @PatchMapping("/own/{id}")
-  @Operation(summary = "Update EmployeeAssessmentDto")
-  @PreAuthorize("@customSecurityExpression.canAccessAssessment(#dto.id)")
-  public OwnAssessmentDto updateOwnAssessment(@PathVariable Integer id, @RequestBody OwnAssessmentDto dto) {
+  @Operation(summary = "Update own assessment")
+  @PreAuthorize("@customSecurityExpression.canAccessOwnAssessment(#dto.id)")
+  public OwnAssessmentDto updateOwnAssessment(@PathVariable Integer id,
+      @RequestBody OwnAssessmentDto dto) {
     return assessmentService.updateOwnAssessment(dto);
+  }
+
+  @PatchMapping("/manager/{id}")
+  @Operation(summary = "Update manager assessment")
+  @PreAuthorize("@customSecurityExpression.canAccessManagerAssessment(#dto.id)")
+  public ManagerAssessmentDto updateManagerAssessment(@PathVariable Integer id,
+      @RequestBody ManagerAssessmentDto dto) {
+    return assessmentService.updateManagerAssessment(dto);
+  }
+
+  @PatchMapping("/expert/{id}")
+  @Operation(summary = "Update expert assessment")
+  @PreAuthorize("@customSecurityExpression.canAccessExpertAssessment(#dto.id)")
+  public ExpertAssessmentDto updateExpertAssessment(@PathVariable Integer id,
+      @RequestBody ExpertAssessmentDto dto) {
+    return assessmentService.updateExpertAssessment(dto);
+  }
+
+  @PutMapping
+  @Operation(summary = "Update EmployeeAssessmentDto")
+  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
+  public EmployeeAssessmentDto update(
+      @Validated(OnUpdate.class) @RequestBody EmployeeAssessmentDto dto) {
+    EmployeeAssessment assessment = assessmentMapper.toEntity(dto);
+    EmployeeAssessment updatedAssessment = assessmentService.update(assessment);
+    return assessmentMapper.toDto(updatedAssessment);
   }
 
   @DeleteMapping("/{id}")

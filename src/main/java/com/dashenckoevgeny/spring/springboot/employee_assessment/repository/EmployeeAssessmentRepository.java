@@ -1,6 +1,8 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.repository;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +25,8 @@ public interface EmployeeAssessmentRepository {
   void delete(Integer id);
 
   void updateOwnAssessment(OwnAssessmentDto assessment);
+
+  void updateManagerAssessment(ManagerAssessmentDto assessment);
+  void updateExpertAssessment(ExpertAssessmentDto assessment);
 
 }

@@ -38,28 +38,12 @@ public class EmployeeController {
   private final EmployeeMapper employeeMapper;
   private final EmployeeAssessmentMapper assessmentMapper;
 
-  @PutMapping
-  @Operation(summary = "Update employee")
-  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#dto.id)")
-  public EmployeeDto update(@Validated(OnUpdate.class) @RequestBody EmployeeDto dto) {
-    Employee employee = employeeMapper.toEntity(dto);
-    Employee updatedEmployee = employeeService.update(employee);
-    return employeeMapper.toDto(updatedEmployee);
-  }
-
   @GetMapping("/{id}")
   @Operation(summary = "Get EmployeeDto by id")
   @PreAuthorize("@customSecurityExpression.canAccessEmployee(#id)")
   public EmployeeDto getById(@PathVariable Integer id) {
     Employee employee = employeeService.getById(id);
     return employeeMapper.toDto(employee);
-  }
-
-  @DeleteMapping("/{id}")
-  @Operation(summary = "Delete Employee by id")
-  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
-  public void deleteById(@PathVariable Integer id) {
-    employeeService.delete(id);
   }
 
   @GetMapping("/{id}/assessments")
@@ -71,7 +55,7 @@ public class EmployeeController {
   }
 
   @GetMapping("/{id}/staff")
-  @Operation(summary = "Get all Employees")
+  @Operation(summary = "Get all Employees by manager")
   @PreAuthorize("@customSecurityExpression.canAccessEmployeeOnlyForManagerAndExpert(#id)")
   public List<Employee> getEmployeesByManagerId(@PathVariable Integer id) {
     List<Employee> employees = employeeService.getAllEmployeesByManager(id);
@@ -86,6 +70,15 @@ public class EmployeeController {
     return employeeMapper.toDto(employees);
   }
 
+  @PutMapping
+  @Operation(summary = "Update employee")
+  @PreAuthorize("@customSecurityExpression.canAccessEmployee(#dto.id)")
+  public EmployeeDto update(@Validated(OnUpdate.class) @RequestBody EmployeeDto dto) {
+    Employee employee = employeeMapper.toEntity(dto);
+    Employee updatedEmployee = employeeService.update(employee);
+    return employeeMapper.toDto(updatedEmployee);
+  }
+
   @PostMapping(value = "/{id}/assessments")
   @Operation(summary = "Add assessment to employee")
   @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
@@ -94,5 +87,12 @@ public class EmployeeController {
     EmployeeAssessment assessment = assessmentMapper.toEntity(dto);
     EmployeeAssessment createdAssessment = assessmentService.create(id, assessment);
     return assessmentMapper.toDto(createdAssessment);
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Delete Employee by id")
+  @PreAuthorize("@customSecurityExpression.createOnlyForAdmin()")
+  public void deleteById(@PathVariable Integer id) {
+    employeeService.delete(id);
   }
 }

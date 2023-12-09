@@ -4,6 +4,8 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.E
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exception.ResourceNotFoundException;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeAssessmentRepository;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeAssessmentService;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -54,8 +56,25 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
 
   @Override
   @Transactional
+  @CachePut(value = "EmployeeAssessmentService::updateOwnAssessment", key = "#assessment.id")
   public OwnAssessmentDto updateOwnAssessment(OwnAssessmentDto assessment) {
     employeeAssessmentRepository.updateOwnAssessment(assessment);
+    return assessment;
+  }
+
+  @Override
+  @Transactional
+  @CachePut(value = "EmployeeAssessmentService::updateManagerAssessment", key = "#assessment.id")
+  public ManagerAssessmentDto updateManagerAssessment(ManagerAssessmentDto assessment) {
+    employeeAssessmentRepository.updateManagerAssessment(assessment);
+    return assessment;
+  }
+
+  @Override
+  @Transactional
+  @CachePut(value = "EmployeeAssessmentService::updateExpertAssessment", key = "#assessment.id")
+  public ExpertAssessmentDto updateExpertAssessment(ExpertAssessmentDto assessment) {
+    employeeAssessmentRepository.updateExpertAssessment(assessment);
     return assessment;
   }
 

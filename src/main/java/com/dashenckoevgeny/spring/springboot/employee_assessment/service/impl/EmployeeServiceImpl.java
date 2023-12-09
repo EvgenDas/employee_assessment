@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
       @Cacheable(value = "EmployeeService::getByLogin", key = "#employee.login")
   })
   public Employee create(Employee employee) {
-    if(employeeRepository.findByLogin(employee.getLogin()).isPresent()) {
+    if (employeeRepository.findByLogin(employee.getLogin()).isPresent()) {
       throw new IllegalStateException("Employee already exists.");
     }
     employee.setPassword(passwordEncoder.encode(employee.getPassword()));
@@ -78,14 +78,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeService::isEmployeesManager", key = "#employeeId + '.' + #managerId")
   public boolean isEmployeesManager(Integer employeeId, Integer managerId) {
     return employeeRepository.isEmployeesManager(employeeId, managerId);
   }
 
   @Override
   @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeService::isEmployeesExpert", key = "#employeeId + '.' + #expertId")
   public boolean isEmployeesExpert(Integer employeeId, Integer expertId) {
     return employeeRepository.isEmployeesExpert(employeeId, expertId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeService::isEmployeeManagerByAssessment", key = "#managerId + '.' + #assessmentId")
+  public boolean isEmployeeManagerByAssessment(Integer managerId, Integer assessmentId) {
+    return employeeRepository.isEmployeeManagerByAssessment(managerId, assessmentId);
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeService::isEmployeeExpertByAssessment", key = "#expertId + '.' + #assessmentId")
+  public boolean isEmployeeExpertByAssessment(Integer expertId, Integer assessmentId) {
+    return employeeRepository.isEmployeeExpertByAssessment(expertId, assessmentId);
   }
 
   @Override

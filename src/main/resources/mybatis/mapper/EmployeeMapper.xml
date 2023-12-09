@@ -121,6 +121,29 @@
     )
   </select>
 
+
+
+  <select id="isEmployeeManagerByAssessment" resultType="boolean">
+    select exists (
+    select 1
+    from employees e
+    LEFT JOIN employees_assessments ea on e.id = ea.employee_id
+    where e.manager_id = #{managerId}
+    and ea.assessment_id = #{assessmentId}
+    )
+  </select>
+
+  <select id="isEmployeeExpertByAssessment" resultType="boolean">
+    select exists (
+    select 1
+    from employees e
+    LEFT JOIN employees_assessments ea on e.id = ea.employee_id
+    where e.expert_id = #{expertId}
+    and ea.assessment_id = #{assessmentId}
+    )
+  </select>
+
+
   <select id="findAllEmployeesByManager" resultMap="EmployeeResultMap">
     select e.id as employee_id,
     e.name as name,

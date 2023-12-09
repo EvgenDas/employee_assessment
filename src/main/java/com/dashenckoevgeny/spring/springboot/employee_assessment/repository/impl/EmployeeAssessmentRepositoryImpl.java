@@ -5,6 +5,8 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exceptio
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.DataSourceConfig;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.EmployeeAssessmentRepository;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.mappers.AssessmentRowMapper;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -180,6 +182,16 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
 
   @Override
   public void updateOwnAssessment(OwnAssessmentDto assessment) {
+
+  }
+
+  @Override
+  public void updateManagerAssessment(ManagerAssessmentDto assessment) {
+
+  }
+
+  @Override
+  public void updateExpertAssessment(ExpertAssessmentDto assessment) {
 
   }
 

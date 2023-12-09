@@ -1,23 +1,23 @@
 spring:
   config:
     import: optional:file:.env[.properties]
-#  cache:
-#    type: redis
-#    cache-names: redis-cache
-#  data:
-#    redis:
-#      host: ${REDIS_HOST}
-#      port: 6379
-#      password:
+  cache:
+    type: redis
+    cache-names: redis-cache
+  data:
+    redis:
+      host: redis
+      port: 6379
+      password: Z2Zsa2pnbGZk
   datasource:
-    url: jdbc:postgresql://${LOCALHOST}:3036/${POSTGRES_DATABASE}?currentSchema=${POSTGRES_SCHEMA}
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    url: jdbc:postgresql://db:5432/postgres
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
-    default-schema: employees_db
+    default-schema: public
 server:
   port: 8099
 
