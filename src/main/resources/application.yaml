@@ -6,13 +6,13 @@ spring:
     cache-names: redis-cache
   data:
     redis:
-      host: redis
+      host: ${REDIS_HOST}
       port: 6379
-      password: Z2Zsa2pnbGZk
+      password: ${REDIS_PASSWORD}
   datasource:
     url: jdbc:postgresql://db:5432/postgres
-    username: postgres
-    password: postgres
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml
