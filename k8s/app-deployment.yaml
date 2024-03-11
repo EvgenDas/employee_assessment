@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: employee-assessment
+  labels:
+    app.kubernetes.io/name: employee-assessment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: employee-assessment
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: employee-assessment
+    spec:
+      containers:
+        - name: employee-assessment
+          image: evgendas/employee-assessment:1.0.0
+          ports:
+            - containerPort: 8099
+          env:
+            - name: DATASOURCE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATASOURCE_HOST
+                  name: env
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: HOST
+                  name: env
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_SECRET
+                  name: env
+            - name: LOCALHOST
+              valueFrom:
+                configMapKeyRef:
+                  key: LOCALHOST
+                  name: env
+            - name: POSTGRES_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DATABASE
+                  name: env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: env
+            - name: POSTGRES_SCHEMA
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_SCHEMA
+                  name: env
+            - name: POSTGRES_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USERNAME
+                  name: env
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_HOST
+                  name: env
+            - name: REDIS_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: REDIS_PASSWORD
+                  name: env
+            - name: SPRING_DATASOURCE_PASSWORD
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://pg:5432/postgres
+            - name: SPRING_DATASOURCE_USERNAME
