@@ -21,23 +21,9 @@ spec:
             - containerPort: 5432
               name: pg
           env:
-            - name: POSTGRES_DATABASE
-              valueFrom:
-                configMapKeyRef:
-                  key: POSTGRES_DATABASE
-                  name: env
             - name: POSTGRES_PASSWORD
-              valueFrom:
-                configMapKeyRef:
-                  key: POSTGRES_PASSWORD
-                  name: env
-            - name: POSTGRES_SCHEMA
-              valueFrom:
-                configMapKeyRef:
-                  key: POSTGRES_SCHEMA
-                  name: env
+              value: postgres
             - name: POSTGRES_USERNAME
-              valueFrom:
-                configMapKeyRef:
-                  key: POSTGRES_USERNAME
-                  name: env
+              value: postgres
+            - name: POSTGRES_DATABASE
+              value: postgres

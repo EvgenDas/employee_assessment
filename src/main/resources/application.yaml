@@ -11,8 +11,8 @@ spring:
       password: ${REDIS_PASSWORD}
   datasource:
     url: jdbc:postgresql://pg:5432/postgres
-    username: ${POSTGRES_USERNAME}
-    password: ${POSTGRES_PASSWORD}
+    username: postgres
+    password: postgres
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:liquibase/db.changelog.yaml

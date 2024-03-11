@@ -4,7 +4,7 @@ data:
   HOST: postgres
   JWT_SECRET: amZhbGRqZmFsa2ZqZGFzO2xramRza2xhamZsa2RzamZsaztkamtsc2FmbGtmamRsYWtzamZrbGFqZHNsa2ZhamxrO2RzZmxhZmphbGRrcw==
   LOCALHOST: localhost
-  POSTGRES_DATABASE: employees_db
+  POSTGRES_DATABASE: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_SCHEMA: employees_db
   POSTGRES_USERNAME: postgres

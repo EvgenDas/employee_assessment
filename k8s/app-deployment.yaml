@@ -50,11 +50,6 @@ spec:
                 configMapKeyRef:
                   key: POSTGRES_PASSWORD
                   name: env
-            - name: POSTGRES_SCHEMA
-              valueFrom:
-                configMapKeyRef:
-                  key: POSTGRES_SCHEMA
-                  name: env
             - name: POSTGRES_USERNAME
               valueFrom:
                 configMapKeyRef:
@@ -71,6 +66,8 @@ spec:
                   key: REDIS_PASSWORD
                   name: env
             - name: SPRING_DATASOURCE_PASSWORD
+              value: postgres
             - name: SPRING_DATASOURCE_URL
               value: jdbc:postgresql://pg:5432/postgres
             - name: SPRING_DATASOURCE_USERNAME
+              value: postgres
