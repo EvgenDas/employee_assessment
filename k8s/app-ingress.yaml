@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: employee-assessment
+  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+#    nginx.ingress.kubernetes.io/auth-url: "https://auth.mysite.domain/api/auth/token/validate"
+    nginx.ingress.kubernetes.io/proxy-pass-headers: "Authorization"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: employee-assessment
+                port:
+                  number: 80

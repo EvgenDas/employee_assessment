@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: employee-assessment
-          image: evgendas/employee-assessment:1.0.0
+          image: evgendas/employee-assessment:1.0.5
           ports:
             - containerPort: 8099
           env:
