@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: employee-assessment
   config:
     import: optional:file:.env[.properties]
   cache:
@@ -18,6 +20,18 @@ spring:
     change-log: classpath:liquibase/db.changelog.yaml
     enabled: true
     default-schema: public
+  boot:
+    admin:
+      client:
+        instance:
+          prefer-ip: true
+        url: ${SPRING_ADMIN:http://localhost:8081/}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 server:
   port: 8099
 

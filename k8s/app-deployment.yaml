@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: employee-assessment
-          image: evgendas/employee-assessment:1.0.5
+          image: evgendas/employee-assessment:1.0.11
           ports:
             - containerPort: 8099
           env:
@@ -71,3 +71,5 @@ spec:
               value: jdbc:postgresql://pg:5432/postgres
             - name: SPRING_DATASOURCE_USERNAME
               value: postgres
+            - name: SPRING_ADMIN
+              value: http://spring-admin/spring-admin
