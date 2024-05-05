@@ -1,6 +1,7 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.service.impl;
 
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.Employee;
+import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.exception.AccessDeniedException;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.AuthService;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.service.EmployeeService;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.auth.JwtRequest;
@@ -29,7 +30,10 @@ public class AuthServiceImpl implements AuthService {
         new UsernamePasswordAuthenticationToken(loginRequest.getLogin(),
             loginRequest.getPassword()));
 
-    if (authentication.isAuthenticated()) {
+    if (!authentication.isAuthenticated()) {
+      throw new AccessDeniedException();
+    }
+
       Employee employee = employeeService.getByLogin(loginRequest.getLogin());
       jwtResponse.setId(employee.getId());
       jwtResponse.setUsername(employee.getLogin());
@@ -38,8 +42,6 @@ public class AuthServiceImpl implements AuthService {
       jwtResponse.setRefreshToken(jwtTokenProvider.createRefreshToken(employee.getId(),
           employee.getLogin()));
       return jwtResponse;
-    }
-    return null;
   }
 
   @Override

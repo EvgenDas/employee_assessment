@@ -10,6 +10,21 @@ values (3, 4, 4, '2023-01-29 12:00:00', 'true'),
        (5, 3, 4, '2023-01-31 00:00:00', 'true'),
        (5, 3, 3, '2023-01-31 00:00:00', 'true');
 
+
+insert into matrix (who, data_base, build_tools, testing, vcs, kubernetes, docker, java_core, jdbc, jvm, security, spring, kafka, orm, ci_cd, helm, microservice)
+values ('own', 4, 4, 3, 4, 5, 2, 5, 5, 4, 3, 4, 4, 3, 2, 2, 3),
+       ('own', 4, 1, 3, 5, 5, 2, 5, 5, 4, 1, 4, 1, 5, 2, 2, 3),
+       ('own', 0, 4, 5, 4, 2, 2, 3, 2, 1, 3, 4, 5, 3, 4, 2, 3),
+       ('manager', 2, 3, 3, 4, 3, 4, 4, 5, 4, 2, 4, 4, 3, 1, 2, 3),
+       ('manager', 5, 4, 3, 1, 5, 2, 5, 3, 4, 3, 4, 4, 5, 2, 2, 1),
+       ('manager', 3, 4, 2, 1, 5, 2, 5, 3, 4, 3, 5, 4, 3, 2, 5, 3),
+       ('expert', 2, 3, 3, 4, 3, 4, 4, 5, 4, 2, 4, 4, 3, 1, 2, 3),
+       ('expert', 5, 4, 3, 1, 5, 2, 5, 3, 4, 3, 4, 4, 5, 2, 2, 1),
+       ('expert', 3, 4, 2, 1, 5, 2, 5, 3, 4, 3, 5, 4, 3, 2, 5, 3),
+       ('final', 2, 3, 3, 4, 3, 4, 4, 5, 4, 2, 4, 4, 3, 1, 2, 3),
+       ('final', 5, 4, 3, 1, 5, 2, 5, 3, 4, 3, 4, 4, 5, 2, 2, 1),
+       ('final', 3, 4, 2, 1, 5, 2, 5, 3, 4, 3, 5, 4, 3, 2, 5, 3),
+
 insert into employees_assessments (assessment_id, employee_id)
 values (1, 3),
        (2, 4),
@@ -22,3 +37,17 @@ values (1, 'ROLE_ADMIN'),
        (4, 'ROLE_USER'),
        (5, 'ROLE_USER'),
        (5, 'ROLE_EXPERT');
+
+insert into assessments_matrix (assessment_id, matrix_id)
+values (1, 1),
+       (1, 4),
+       (1, 7),
+       (1, 10),
+       (2, 2),
+       (2, 5),
+       (2, 8),
+       (2, 11),
+       (3, 3),
+       (3, 6),
+       (3, 9),
+       (3, 12);
