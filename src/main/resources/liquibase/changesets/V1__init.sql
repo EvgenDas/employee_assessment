@@ -21,28 +21,18 @@ create table if not exists assessments
   is_active boolean not null
 );
 
-create table if not exists matrix
+create table if not exists skills
 (
   id serial primary key,
-  who varchar(255) not null,
-  data_base integer null,
-  build_tools integer null,
-  testing integer null,
-  vcs integer null,
-  kubernetes integer null,
-  docker integer null,
-  java_core integer null,
-  jdbc integer null,
-  jvm integer null,
-  security integer null,
-  spring integer null,
-  kafka integer null,
-  orm integer null,
-  ci_cd integer null,
-  helm integer null,
-  microservice integer null,
+  name varchar(255) not null
 );
 
+create table if not exists matrix
+(
+  id seriald primary key,
+  who varchar(255) not null,
+  assessment jsonb
+);
 
 create table if not exists employees_assessments
 (
@@ -62,11 +52,11 @@ create table if not exists employees_roles
   constraint fk_employees_roles_employees foreign key (employee_id) references employees (id) on delete cascade on update no action
 );
 
-create table if not exists assessments_matrix
+create table if not exists matrix_skills
 (
-  assessment_id integer not null,
   matrix_id integer not null,
-  primary key(assessment_id, matrix_id),
-  constraint fk_assessments_matrix_assessment foreign key (assessment_id) references assessments (id) on delete cascade on update no action
-  constraint fk_assessments_matrix_matrix foreign key (matrix_id) references matrix (id) on delete cascade on update no action
+  skill_id integer not null,
+  primary key (matrix_id, skill_id),
+  constraint fk_matrix_skills_matrix foreign key (matrix_id) references matrix (id) on delete cascade on update no action,
+  constraint fk_matrix_skills_skill foreign key (skill_id) references skills (id) on delete cascade on update no action
 );

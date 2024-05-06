@@ -6,24 +6,39 @@ values ('John','Doe', 0, 0, 'johndoe@gmail.com', '$2a$10$Xl0yhvzLIaJCDdKBS0Lld.k
        ('Evgeny', 'Dashencko ', 2, 0, 'evgenydashencko@yahoo.com', '$2a$12$IqTJ44REQzUBokBScTr7h.CDK3HZ18m9nMOa1GuibJKsCMXvgk5CK');
 
 insert into assessments (own_assessment, expert_assessment, manager_assessment, date_of_assessment, is_active)
-values (3, 4, 4, '2023-01-29 12:00:00', 'true'),
-       (5, 3, 4, '2023-01-31 00:00:00', 'true'),
-       (5, 3, 3, '2023-01-31 00:00:00', 'true');
+values (1, 4, 7, '2023-01-29 12:00:00', 'true'),
+       (2, 5, 8, '2023-01-31 00:00:00', 'true'),
+       (3, 6, 9, '2023-01-31 00:00:00', 'true');
 
 
-insert into matrix (who, data_base, build_tools, testing, vcs, kubernetes, docker, java_core, jdbc, jvm, security, spring, kafka, orm, ci_cd, helm, microservice)
-values ('own', 4, 4, 3, 4, 5, 2, 5, 5, 4, 3, 4, 4, 3, 2, 2, 3),
-       ('own', 4, 1, 3, 5, 5, 2, 5, 5, 4, 1, 4, 1, 5, 2, 2, 3),
-       ('own', 0, 4, 5, 4, 2, 2, 3, 2, 1, 3, 4, 5, 3, 4, 2, 3),
-       ('manager', 2, 3, 3, 4, 3, 4, 4, 5, 4, 2, 4, 4, 3, 1, 2, 3),
-       ('manager', 5, 4, 3, 1, 5, 2, 5, 3, 4, 3, 4, 4, 5, 2, 2, 1),
-       ('manager', 3, 4, 2, 1, 5, 2, 5, 3, 4, 3, 5, 4, 3, 2, 5, 3),
-       ('expert', 2, 3, 3, 4, 3, 4, 4, 5, 4, 2, 4, 4, 3, 1, 2, 3),
-       ('expert', 5, 4, 3, 1, 5, 2, 5, 3, 4, 3, 4, 4, 5, 2, 2, 1),
-       ('expert', 3, 4, 2, 1, 5, 2, 5, 3, 4, 3, 5, 4, 3, 2, 5, 3),
-       ('final', 2, 3, 3, 4, 3, 4, 4, 5, 4, 2, 4, 4, 3, 1, 2, 3),
-       ('final', 5, 4, 3, 1, 5, 2, 5, 3, 4, 3, 4, 4, 5, 2, 2, 1),
-       ('final', 3, 4, 2, 1, 5, 2, 5, 3, 4, 3, 5, 4, 3, 2, 5, 3),
+insert into matrix (who, assessment)
+values ('own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
+       ('expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb);
+
+insert into skills (name)
+values ('data_base'),
+       ('build_tools'),
+       ('testing'),
+       ('vcs'),
+       ('kubernetes'),
+       ('docker'),
+       ('java_core'),
+       ('jdbc'),
+       ('jvm'),
+       ('security'),
+       ('spring'),
+       ('kafka'),
+       ('orm'),
+       ('ci_cd'),
+       ('helm'),
+       ('microservice');
 
 insert into employees_assessments (assessment_id, employee_id)
 values (1, 3),
@@ -38,16 +53,16 @@ values (1, 'ROLE_ADMIN'),
        (5, 'ROLE_USER'),
        (5, 'ROLE_EXPERT');
 
-insert into assessments_matrix (assessment_id, matrix_id)
-values (1, 1),
-       (1, 4),
-       (1, 7),
-       (1, 10),
-       (2, 2),
-       (2, 5),
-       (2, 8),
-       (2, 11),
-       (3, 3),
-       (3, 6),
-       (3, 9),
-       (3, 12);
+--insert into matrix_skills (assessment_id, matrix_id)
+--values (1, 1),
+--       (1, 4),
+--       (1, 7),
+--       (1, 10),
+--       (2, 2),
+--       (2, 5),
+--       (2, 8),
+--       (2, 11),
+--       (3, 3),
+--       (3, 6),
+--       (3, 9),
+--       (3, 12);
