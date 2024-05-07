@@ -14,6 +14,8 @@ public interface EmployeeAssessmentRepository {
 
   Optional<EmployeeAssessment> findById(Integer id);
 
+  Optional<EmployeeAssessment> findByOwnAssessmentId(Integer id);
+
   List<EmployeeAssessment> findAllByEmployeeId(Integer id);
 
   void assignToEmployeeById(@Param("employeeId") Integer employeeId, @Param("assessmentId") Integer assessmentId);

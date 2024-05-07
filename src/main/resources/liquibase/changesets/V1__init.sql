@@ -29,7 +29,8 @@ create table if not exists skills
 
 create table if not exists matrix
 (
-  id seriald primary key,
+  id serial primary key,
+  assessment_id integer null,
   who varchar(255) not null,
   assessment jsonb
 );

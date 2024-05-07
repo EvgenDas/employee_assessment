@@ -37,6 +37,35 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
       where t.id = ?
       """;
 
+  private final String FIND_BY_ID_OWN_ASSESSMENT = """
+      select t.assessment as assessment,
+      from matrix m
+      where m.assessment_id = ?
+      and m.who = 'own'
+      """;
+
+  private final String FIND_BY_ID_MANAGER_ASSESSMENT = """
+      select t.assessment as assessment,
+      from matrix m
+      where m.assessment_id = ?
+      and m.who = 'manager'
+      """;
+
+  private final String FIND_BY_ID_EXPERT_ASSESSMENT = """
+      select t.assessment as assessment,
+      from matrix m
+      where m.assessment_id = ?
+      and m.who = 'expert'
+      """;
+
+  private final String FIND_BY_ID_FINAL_ASSESSMENT = """
+      select t.assessment as assessment,
+      from matrix m
+      where m.assessment_id = ?
+      and m.who = 'final'
+      """;
+
+
   private final String FIND_ALL_BY_EMPLOYEE_ID = """
       select t.id as assessment_id,
         t.own_assessment as own_assessment,
@@ -90,6 +119,11 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
     } catch (SQLException e) {
       throw new ResourceMappingException("Error while finding assessment by id.");
     }
+  }
+
+  @Override
+  public Optional<EmployeeAssessment> findByOwnAssessmentId(Integer id) {
+    return Optional.empty();
   }
 
   @Override
