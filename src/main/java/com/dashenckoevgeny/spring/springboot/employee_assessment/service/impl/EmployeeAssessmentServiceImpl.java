@@ -7,9 +7,13 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.service.Employe
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -17,10 +21,27 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService {
 
   private final EmployeeAssessmentRepository employeeAssessmentRepository;
+
+  private final ObjectMapper objectMapper;
+
+  TypeReference<Map<String, Integer>> typeRef = new TypeReference<>() {};
+
+
+  public Map<String, Integer> convertJsonToMap(String json) {
+    try {
+      log.info("start deserialize: {}", json);
+      Map<String, Integer> map = objectMapper.readValue(json, typeRef);
+      log.info("success deserialize");
+      return map;
+    } catch (IOException e) {
+      throw new ResourceNotFoundException(e.getMessage());
+    }
+  }
 
   @Override
   @Transactional(readOnly = true)
@@ -33,33 +54,41 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getOwnAssessmentById", key = "#id")
-  public String getOwnAssessmentById(Integer id) {
-    return employeeAssessmentRepository.findOwnAssessmentById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  public Map<String, Integer> getOwnAssessmentById(Integer id) {
+    return convertJsonToMap(
+        employeeAssessmentRepository.findOwnAssessmentById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."))
+    );
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getManagerAssessmentById", key = "#id")
-  public String getManagerAssessmentById(Integer id) {
-    return employeeAssessmentRepository.findManagerAssessmentById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  public Map<String, Integer> getManagerAssessmentById(Integer id) {
+    return convertJsonToMap(
+        employeeAssessmentRepository.findManagerAssessmentById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."))
+    );
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getExpertAssessmentById", key = "#id")
-  public String getExpertAssessmentById(Integer id) {
-    return employeeAssessmentRepository.findExpertAssessmentById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  public Map<String, Integer> getExpertAssessmentById(Integer id) {
+    return convertJsonToMap(
+        employeeAssessmentRepository.findExpertAssessmentById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."))
+    );
   }
 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getFinalAssessmentById", key = "#id")
-  public String getFinalAssessmentById(Integer id) {
-    return employeeAssessmentRepository.findFinalAssessmentById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  public Map<String, Integer> getFinalAssessmentById(Integer id) {
+    return convertJsonToMap(
+        employeeAssessmentRepository.findFinalAssessmentById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."))
+    );
   }
 
   @Override

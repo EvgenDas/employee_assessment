@@ -46,28 +46,28 @@ public class EmployeeAssessmentController {
   @GetMapping("/ownAssessment/{id}")
   @Operation(summary = "Get own assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public String getOwnAssessmentById(@PathVariable Integer id) {
+  public Map<String, Integer> getOwnAssessmentById(@PathVariable Integer id) {
     return assessmentService.getOwnAssessmentById(id);
   }
 
   @GetMapping("/managerAssessment/{id}")
   @Operation(summary = "Get manager assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public String getManagerAssessmentById(@PathVariable Integer id) {
+  public Map<String, Integer> getManagerAssessmentById(@PathVariable Integer id) {
     return assessmentService.getManagerAssessmentById(id);
   }
 
   @GetMapping("/expertAssessment/{id}")
   @Operation(summary = "Get expert assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public String getExpertAssessmentById(@PathVariable Integer id) {
+  public Map<String, Integer> getExpertAssessmentById(@PathVariable Integer id) {
     return assessmentService.getExpertAssessmentById(id);
   }
 
   @GetMapping("/finalAssessment/{id}")
   @Operation(summary = "Get final assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public String getFinalAssessmentById(@PathVariable Integer id) {
+  public Map<String, Integer> getFinalAssessmentById(@PathVariable Integer id) {
     return assessmentService.getFinalAssessmentById(id);
   }
 

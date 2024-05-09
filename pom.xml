@@ -16,7 +16,6 @@
 		<relativePath/>
 	</parent>
 
-
 	<properties>
 
 		<java.version>17</java.version>
@@ -73,13 +72,6 @@
 			<artifactId>spring-boot-admin-starter-client</artifactId>
 			<version>${admin.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-core</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
-
 
 		<dependency>
 			<groupId>org.liquibase</groupId>
