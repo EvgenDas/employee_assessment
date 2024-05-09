@@ -1,10 +1,12 @@
 package com.dashenckoevgeny.spring.springboot.employee_assessment.repository.mappers;
 
+
 import com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity.EmployeeAssessment;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import lombok.SneakyThrows;
 
 public class AssessmentRowMapper {
@@ -13,10 +15,10 @@ public class AssessmentRowMapper {
     if(resultSet.next()) {
       EmployeeAssessment employeeAssessment = new EmployeeAssessment();
       employeeAssessment.setId(resultSet.getInt("assessment_id"));
-      employeeAssessment.setOwnAssessment(resultSet.getInt("own_assessment"));
-      employeeAssessment.setExpertAssessment(resultSet.getInt("expert_assessment"));
-      employeeAssessment.setManagerAssessment(resultSet.getInt("manager_assessment"));
-      employeeAssessment.setFinalAssessment(resultSet.getInt("final_assessment"));
+      employeeAssessment.setOwnAssessment(resultSet.getString("own_assessment"));
+      employeeAssessment.setExpertAssessment(resultSet.getString("expert_assessment"));
+      employeeAssessment.setManagerAssessment(resultSet.getString("manager_assessment"));
+      employeeAssessment.setFinalAssessment(resultSet.getString("final_assessment"));
       Timestamp timestamp = resultSet.getTimestamp("date_of_assessment");
       if(timestamp != null) {
         employeeAssessment.setDateOfAssessment(resultSet.getTimestamp("date_of_assessment").toLocalDateTime());
@@ -34,10 +36,10 @@ public class AssessmentRowMapper {
       EmployeeAssessment employeeAssessment = new EmployeeAssessment();
       employeeAssessment.setId(resultSet.getInt("assessment_id"));
       if(!resultSet.wasNull()) {
-        employeeAssessment.setOwnAssessment(resultSet.getInt("own_assessment"));
-        employeeAssessment.setExpertAssessment(resultSet.getInt("expert_assessment"));
-        employeeAssessment.setManagerAssessment(resultSet.getInt("manager_assessment"));
-        employeeAssessment.setFinalAssessment(resultSet.getInt("final_assessment"));
+        employeeAssessment.setOwnAssessment(resultSet.getString("own_assessment"));
+        employeeAssessment.setExpertAssessment(resultSet.getString("expert_assessment"));
+        employeeAssessment.setManagerAssessment(resultSet.getString("manager_assessment"));
+        employeeAssessment.setFinalAssessment(resultSet.getString("final_assessment"));
         Timestamp timestamp = resultSet.getTimestamp("date_of_assessment");
         if(timestamp != null) {
           employeeAssessment.setDateOfAssessment(resultSet.getTimestamp("date_of_assessment").toLocalDateTime());

@@ -13,11 +13,11 @@ public interface EmployeeAssessmentService {
 
   String getOwnAssessmentById(Integer id);
 
-  Map<String, Integer> getManagerAssessmentById(Integer id);
+  String getManagerAssessmentById(Integer id);
 
-  Map<String, Integer> getExpertAssessmentById(Integer id);
+  String getExpertAssessmentById(Integer id);
 
-  Map<String, Integer> getFinalAssessmentById(Integer id);
+  String getFinalAssessmentById(Integer id);
 
   List<EmployeeAssessment> getAllByEmployeeId(Integer id);
 

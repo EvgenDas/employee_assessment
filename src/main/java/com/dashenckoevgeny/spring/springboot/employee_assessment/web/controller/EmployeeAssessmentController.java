@@ -53,21 +53,21 @@ public class EmployeeAssessmentController {
   @GetMapping("/managerAssessment/{id}")
   @Operation(summary = "Get manager assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public Map<String, Integer> getManagerAssessmentById(@PathVariable Integer id) {
+  public String getManagerAssessmentById(@PathVariable Integer id) {
     return assessmentService.getManagerAssessmentById(id);
   }
 
   @GetMapping("/expertAssessment/{id}")
   @Operation(summary = "Get expert assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public Map<String, Integer> getExpertAssessmentById(@PathVariable Integer id) {
+  public String getExpertAssessmentById(@PathVariable Integer id) {
     return assessmentService.getExpertAssessmentById(id);
   }
 
   @GetMapping("/finalAssessment/{id}")
   @Operation(summary = "Get final assessment by id")
   @PreAuthorize("canAccessAssessment(#id)")
-  public Map<String, Integer> getFinalAssessmentById(@PathVariable Integer id) {
+  public String getFinalAssessmentById(@PathVariable Integer id) {
     return assessmentService.getFinalAssessmentById(id);
   }
 

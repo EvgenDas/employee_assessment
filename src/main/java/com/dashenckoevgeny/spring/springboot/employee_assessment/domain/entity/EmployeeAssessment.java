@@ -2,6 +2,7 @@ package com.dashenckoevgeny.spring.springboot.employee_assessment.domain.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Map;
 import lombok.Data;
 
 @Data
@@ -9,13 +10,13 @@ public class EmployeeAssessment implements Serializable {
 
   private int id;
 
-  private int ownAssessment;
+  private String ownAssessment;
 
-  private int expertAssessment;
+  private String expertAssessment;
 
-  private int managerAssessment;
+  private String managerAssessment;
 
-  private int finalAssessment;
+  private String finalAssessment;
 
   private LocalDateTime dateOfAssessment;
 

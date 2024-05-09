@@ -19,16 +19,28 @@
     <result property="ownAssessment" column="own_assessment"/>
   </resultMap>
 
-  <resultMap id="OwnAssessmentResultMap" type="java.lang.String" autoMapping="false">
-    <result property="assessment" column="assessment"/>
-  </resultMap>
-
   <resultMap id="ManagerAssessmentMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto" autoMapping="false">
     <result property="managerAssessment" column="manager_assessment"/>
   </resultMap>
 
   <resultMap id="ExpertAssessmentMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto" autoMapping="false">
     <result property="expertAssessment" column="expert_assessment"/>
+  </resultMap>
+
+  <resultMap id="OwnAssessmentResultMap" type="java.lang.String" autoMapping="false">
+    <result property="assessment" column="assessment"/>
+  </resultMap>
+
+  <resultMap id="ManagerAssessmentResultMap" type="java.lang.String" autoMapping="false">
+    <result property="assessment" column="assessment"/>
+  </resultMap>
+
+  <resultMap id="ExpertAssessmentResultMap" type="java.lang.String" autoMapping="false">
+    <result property="assessment" column="assessment"/>
+  </resultMap>
+
+  <resultMap id="FinalAssessmentResultMap" type="java.lang.String" autoMapping="false">
+    <result property="assessment" column="assessment"/>
   </resultMap>
   
   <select id="findById" resultMap="AssessmentResultMap">
@@ -44,10 +56,27 @@
   </select>
 
   <select id="findOwnAssessmentById" resultMap="OwnAssessmentResultMap">
-    select m.assessment as assessment
-    from matrix m
-    where m.who = 'own'
-    and m.assessment_id = #{id}
+    select t.own_assessment as assessment
+    from assessments t
+    where t.id = #{id}
+  </select>
+
+  <select id="findManagerAssessmentById" resultMap="ManagerAssessmentResultMap">
+    select t.manager_assessment as assessment
+    from assessments t
+    where t.id = #{id}
+  </select>
+
+  <select id="findExpertAssessmentById" resultMap="ExpertAssessmentResultMap">
+    select t.expert_assessment as assessment
+    from assessments t
+    where t.id = #{id}
+  </select>
+
+  <select id="findFinalAssessmentById" resultMap="FinalAssessmentResultMap">
+    select t.final_assessment as assessment
+    from assessments t
+    where t.id = #{id}
   </select>
   
   <select id="findAllByEmployeeId" resultMap="AssessmentResultMap">

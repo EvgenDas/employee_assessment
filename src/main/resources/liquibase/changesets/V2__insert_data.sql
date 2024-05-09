@@ -6,21 +6,18 @@ values ('John','Doe', 0, 0, 'johndoe@gmail.com', '$2a$10$Xl0yhvzLIaJCDdKBS0Lld.k
        ('Evgeny', 'Dashencko ', 2, 0, 'evgenydashencko@yahoo.com', '$2a$12$IqTJ44REQzUBokBScTr7h.CDK3HZ18m9nMOa1GuibJKsCMXvgk5CK');
 
 insert into assessments (own_assessment, expert_assessment, manager_assessment, date_of_assessment, is_active)
-values (1, 4, 7, '2023-01-29 12:00:00', 'true'),
-       (2, 5, 8, '2023-01-31 00:00:00', 'true'),
-       (3, 6, 9, '2023-01-31 00:00:00', 'true');
-
-
-insert into matrix (assessment_id, who, assessment)
-values (1, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (2, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (3, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (1, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (2, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (3, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (1, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (2, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
-       (3, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}');
+values ('{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+ '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+  '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+   '2023-01-29 12:00:00', 'true'),
+       ('{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+       '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+       '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+        '2023-01-31 00:00:00', 'true'),
+       ('{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+       '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+       '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}',
+        '2023-01-31 00:00:00', 'true');
 
 insert into skills (name)
 values ('data_base'),
@@ -52,17 +49,3 @@ values (1, 'ROLE_ADMIN'),
        (4, 'ROLE_USER'),
        (5, 'ROLE_USER'),
        (5, 'ROLE_EXPERT');
-
---insert into matrix_skills (assessment_id, matrix_id)
---values (1, 1),
---       (1, 4),
---       (1, 7),
---       (1, 10),
---       (2, 2),
---       (2, 5),
---       (2, 8),
---       (2, 11),
---       (3, 3),
---       (3, 6),
---       (3, 9),
---       (3, 12);

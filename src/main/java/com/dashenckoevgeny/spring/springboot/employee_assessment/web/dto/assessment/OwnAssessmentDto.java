@@ -9,6 +9,6 @@ public class OwnAssessmentDto {
   @NotNull(message = "Id must be not null", groups = OnUpdate.class)
   private Integer id;
 
-  private Integer ownAssessment;
+  private String ownAssessment;
 
 }

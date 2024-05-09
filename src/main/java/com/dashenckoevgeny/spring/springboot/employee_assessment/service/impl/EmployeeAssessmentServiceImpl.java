@@ -41,7 +41,7 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getManagerAssessmentById", key = "#id")
-  public Map<String, Integer> getManagerAssessmentById(Integer id) {
+  public String getManagerAssessmentById(Integer id) {
     return employeeAssessmentRepository.findManagerAssessmentById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
   }
@@ -49,7 +49,7 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getExpertAssessmentById", key = "#id")
-  public Map<String, Integer> getExpertAssessmentById(Integer id) {
+  public String getExpertAssessmentById(Integer id) {
     return employeeAssessmentRepository.findExpertAssessmentById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
   }
@@ -57,7 +57,7 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
   @Override
   @Transactional(readOnly = true)
   @Cacheable(value = "EmployeeAssessmentService::getFinalAssessmentById", key = "#id")
-  public Map<String, Integer> getFinalAssessmentById(Integer id) {
+  public String getFinalAssessmentById(Integer id) {
     return employeeAssessmentRepository.findFinalAssessmentById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
   }

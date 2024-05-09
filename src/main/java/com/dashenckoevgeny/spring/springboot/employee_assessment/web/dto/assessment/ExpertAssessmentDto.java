@@ -10,6 +10,6 @@ public class ExpertAssessmentDto {
   @NotNull(message = "Id must be not null", groups = OnUpdate.class)
   private Integer id;
 
-  private Integer expertAssessment;
+  private String expertAssessment;
 
 }
