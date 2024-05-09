@@ -30,6 +30,7 @@
 		<liquibase.version>4.20.0</liquibase.version>
 		<springdoc.version>2.0.4</springdoc.version>
 		<admin.version>3.0.4</admin.version>
+		<jackson.version>2.16.1</jackson.version>
 
 	</properties>
 
@@ -71,6 +72,12 @@
 			<groupId>de.codecentric</groupId>
 			<artifactId>spring-boot-admin-starter-client</artifactId>
 			<version>${admin.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 
 

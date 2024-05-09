@@ -5,6 +5,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessm
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,7 +15,13 @@ public interface EmployeeAssessmentRepository {
 
   Optional<EmployeeAssessment> findById(Integer id);
 
-  Optional<EmployeeAssessment> findByOwnAssessmentId(Integer id);
+  Optional<String> findOwnAssessmentById(Integer id);
+
+  Optional<Map<String, Integer>> findManagerAssessmentById(Integer id);
+
+  Optional<Map<String, Integer>> findExpertAssessmentById(Integer id);
+
+  Optional<Map<String, Integer>> findFinalAssessmentById(Integer id);
 
   List<EmployeeAssessment> findAllByEmployeeId(Integer id);
 

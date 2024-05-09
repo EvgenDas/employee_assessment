@@ -8,6 +8,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessm
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -26,6 +27,38 @@ public class EmployeeAssessmentServiceImpl implements EmployeeAssessmentService 
   @Cacheable(value = "EmployeeAssessmentService::getById", key = "#id")
   public EmployeeAssessment getById(Integer id) {
     return employeeAssessmentRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeAssessmentService::getOwnAssessmentById", key = "#id")
+  public String getOwnAssessmentById(Integer id) {
+    return employeeAssessmentRepository.findOwnAssessmentById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeAssessmentService::getManagerAssessmentById", key = "#id")
+  public Map<String, Integer> getManagerAssessmentById(Integer id) {
+    return employeeAssessmentRepository.findManagerAssessmentById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeAssessmentService::getExpertAssessmentById", key = "#id")
+  public Map<String, Integer> getExpertAssessmentById(Integer id) {
+    return employeeAssessmentRepository.findExpertAssessmentById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  @Cacheable(value = "EmployeeAssessmentService::getFinalAssessmentById", key = "#id")
+  public Map<String, Integer> getFinalAssessmentById(Integer id) {
+    return employeeAssessmentRepository.findFinalAssessmentById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Assessment not found."));
   }
 

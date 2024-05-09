@@ -13,7 +13,7 @@ create table if not exists employees
 create table if not exists assessments
 (
   id serial primary key,
-  own_assessment integer null,
+  own_assessment varchar(255) null,
   expert_assessment integer null,
   manager_assessment integer null,
   final_assessment integer null,
@@ -32,7 +32,7 @@ create table if not exists matrix
   id serial primary key,
   assessment_id integer null,
   who varchar(255) not null,
-  assessment jsonb
+  assessment json
 );
 
 create table if not exists employees_assessments

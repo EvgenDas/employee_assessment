@@ -46,6 +46,7 @@ public class EmployeeController {
     return employeeMapper.toDto(employee);
   }
 
+
   @GetMapping("/{id}/assessments")
   @Operation(summary = "Get all Employee assessments")
   @PreAuthorize("@customSecurityExpression.canAccessEmployee(#id)")

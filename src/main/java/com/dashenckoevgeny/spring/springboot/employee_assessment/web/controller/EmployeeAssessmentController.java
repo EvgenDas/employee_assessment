@@ -10,6 +10,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.validat
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.mappers.EmployeeAssessmentMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -40,6 +41,34 @@ public class EmployeeAssessmentController {
   public EmployeeAssessmentDto getById(@PathVariable Integer id) {
     EmployeeAssessment assessment = assessmentService.getById(id);
     return assessmentMapper.toDto(assessment);
+  }
+
+  @GetMapping("/ownAssessment/{id}")
+  @Operation(summary = "Get own assessment by id")
+  @PreAuthorize("canAccessAssessment(#id)")
+  public String getOwnAssessmentById(@PathVariable Integer id) {
+    return assessmentService.getOwnAssessmentById(id);
+  }
+
+  @GetMapping("/managerAssessment/{id}")
+  @Operation(summary = "Get manager assessment by id")
+  @PreAuthorize("canAccessAssessment(#id)")
+  public Map<String, Integer> getManagerAssessmentById(@PathVariable Integer id) {
+    return assessmentService.getManagerAssessmentById(id);
+  }
+
+  @GetMapping("/expertAssessment/{id}")
+  @Operation(summary = "Get expert assessment by id")
+  @PreAuthorize("canAccessAssessment(#id)")
+  public Map<String, Integer> getExpertAssessmentById(@PathVariable Integer id) {
+    return assessmentService.getExpertAssessmentById(id);
+  }
+
+  @GetMapping("/finalAssessment/{id}")
+  @Operation(summary = "Get final assessment by id")
+  @PreAuthorize("canAccessAssessment(#id)")
+  public Map<String, Integer> getFinalAssessmentById(@PathVariable Integer id) {
+    return assessmentService.getFinalAssessmentById(id);
   }
 
   @PatchMapping("/own/{id}")

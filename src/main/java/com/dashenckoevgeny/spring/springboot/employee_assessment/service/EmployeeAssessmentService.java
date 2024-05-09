@@ -5,10 +5,19 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessm
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeAssessmentService {
 
   EmployeeAssessment getById(Integer id);
+
+  String getOwnAssessmentById(Integer id);
+
+  Map<String, Integer> getManagerAssessmentById(Integer id);
+
+  Map<String, Integer> getExpertAssessmentById(Integer id);
+
+  Map<String, Integer> getFinalAssessmentById(Integer id);
 
   List<EmployeeAssessment> getAllByEmployeeId(Integer id);
 

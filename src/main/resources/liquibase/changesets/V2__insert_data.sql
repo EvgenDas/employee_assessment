@@ -12,15 +12,15 @@ values (1, 4, 7, '2023-01-29 12:00:00', 'true'),
 
 
 insert into matrix (assessment_id, who, assessment)
-values (1, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (2, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (3, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (1, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (2, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (3, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (1, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (2, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb),
-       (3, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'::jsonb);
+values (1, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (2, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (3, 'own', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (1, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (2, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (3, 'manager', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (1, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (2, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}'),
+       (3, 'expert', '{"data_base": 4, "build_tools": 4, "testing": 3, "vcs": 2, "kubernetes": 5, "docker": 4, "java_core": 3, "jdbc": 2, "jvm": 5, "security": 3, "spring": 5, "kafka": 3, "orm": 2, "ci_cd": 2, "helm": 1, "microservice": 5}');
 
 insert into skills (name)
 values ('data_base'),

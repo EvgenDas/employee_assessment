@@ -19,6 +19,10 @@
     <result property="ownAssessment" column="own_assessment"/>
   </resultMap>
 
+  <resultMap id="OwnAssessmentResultMap" type="java.lang.String" autoMapping="false">
+    <result property="assessment" column="assessment"/>
+  </resultMap>
+
   <resultMap id="ManagerAssessmentMap" type="com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto" autoMapping="false">
     <result property="managerAssessment" column="manager_assessment"/>
   </resultMap>
@@ -37,6 +41,13 @@
     t.is_active as is_active
     from assessments t
     where t.id = #{id}
+  </select>
+
+  <select id="findOwnAssessmentById" resultMap="OwnAssessmentResultMap">
+    select m.assessment as assessment
+    from matrix m
+    where m.who = 'own'
+    and m.assessment_id = #{id}
   </select>
   
   <select id="findAllByEmployeeId" resultMap="AssessmentResultMap">

@@ -8,6 +8,7 @@ import com.dashenckoevgeny.spring.springboot.employee_assessment.repository.mapp
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ExpertAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.ManagerAssessmentDto;
 import com.dashenckoevgeny.spring.springboot.employee_assessment.web.dto.assessment.OwnAssessmentDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,15 +16,18 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import lombok.SneakyThrows;
 
 //@Repository
 @RequiredArgsConstructor
 public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepository {
 
   private final DataSourceConfig dataSourceConfig;
+
+  private final ObjectMapper objectMapper;
 
   private final String FIND_BY_ID = """
       select t.id as assessment_id,
@@ -37,32 +41,32 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
       where t.id = ?
       """;
 
-  private final String FIND_BY_ID_OWN_ASSESSMENT = """
-      select t.assessment as assessment,
+  private final String FIND_OWN_ASSESSMENT_BY_ID = """
+      select m.assessment as assessment
       from matrix m
-      where m.assessment_id = ?
-      and m.who = 'own'
+      where m.who = 'own'
+      and m.assessment_id = ?
       """;
 
-  private final String FIND_BY_ID_MANAGER_ASSESSMENT = """
-      select t.assessment as assessment,
+  private final String FIND_MANAGER_ASSESSMENT_BY_ID = """
+      select m.assessment as assessment
       from matrix m
-      where m.assessment_id = ?
-      and m.who = 'manager'
+      where m.who = 'manager'
+      and m.assessment_id = ?
       """;
 
-  private final String FIND_BY_ID_EXPERT_ASSESSMENT = """
-      select t.assessment as assessment,
+  private final String FIND_EXPERT_ASSESSMENT_BY_ID = """
+      select m.assessment as assessment
       from matrix m
-      where m.assessment_id = ?
-      and m.who = 'expert'
+      where m.who = 'expert'
+      and m.assessment_id = ?
       """;
 
-  private final String FIND_BY_ID_FINAL_ASSESSMENT = """
-      select t.assessment as assessment,
+  private final String FIND_FINAL_ASSESSMENT_BY_ID = """
+      select m.assessment as assessment
       from matrix m
-      where m.assessment_id = ?
-      and m.who = 'final'
+      where m.who = 'final'
+      and m.assessment_id = ?
       """;
 
 
@@ -106,14 +110,13 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
       """;
 
 
-
   @Override
   public Optional<EmployeeAssessment> findById(Integer id) {
     try {
       Connection connection = dataSourceConfig.getConnection();
       PreparedStatement statement = connection.prepareStatement(FIND_BY_ID);
       statement.setInt(1, id);
-      try(ResultSet resultSet = statement.executeQuery()) {
+      try (ResultSet resultSet = statement.executeQuery()) {
         return Optional.ofNullable(AssessmentRowMapper.mapRow(resultSet));
       }
     } catch (SQLException e) {
@@ -121,9 +124,80 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
     }
   }
 
+  @SneakyThrows
   @Override
-  public Optional<EmployeeAssessment> findByOwnAssessmentId(Integer id) {
-    return Optional.empty();
+  public Optional<String> findOwnAssessmentById(Integer id) {
+    try {
+      Connection connection = dataSourceConfig.getConnection();
+      PreparedStatement statement = connection.prepareStatement(FIND_OWN_ASSESSMENT_BY_ID);
+      statement.setInt(1, id);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        String assessment = null;
+        if (resultSet.next()) {
+          assessment = resultSet.getString("assessment");
+        }
+        return Optional.ofNullable(assessment);
+      }
+    } catch (SQLException e) {
+      throw new ResourceMappingException("Error while finding assessment by id.");
+    }
+  }
+
+  @SneakyThrows
+  @Override
+  public Optional<Map<String, Integer>> findManagerAssessmentById(Integer id) {
+    try {
+      Connection connection = dataSourceConfig.getConnection();
+      PreparedStatement statement = connection.prepareStatement(FIND_MANAGER_ASSESSMENT_BY_ID);
+      statement.setInt(1, id);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Map<String, Integer> assessment = null;
+        if (resultSet.next()) {
+          assessment = objectMapper.readValue(resultSet.getString("assessment"), Map.class);
+        }
+        return Optional.ofNullable(assessment);
+      }
+    } catch (SQLException e) {
+      throw new ResourceMappingException("Error while finding assessment by id.");
+    }
+  }
+
+  @SneakyThrows
+  @Override
+  public Optional<Map<String, Integer>> findExpertAssessmentById(Integer id) {
+    try {
+      Connection connection = dataSourceConfig.getConnection();
+      PreparedStatement statement = connection.prepareStatement(FIND_EXPERT_ASSESSMENT_BY_ID);
+      statement.setInt(1, id);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Map<String, Integer> assessment = null;
+        if (resultSet.next()) {
+          assessment = objectMapper.readValue(resultSet.getString("assessment"), Map.class);
+        }
+        return Optional.ofNullable(assessment);
+      }
+    } catch (SQLException e) {
+      throw new ResourceMappingException("Error while finding assessment by id.");
+    }
+  }
+
+  @SneakyThrows
+  @Override
+  public Optional<Map<String, Integer>> findFinalAssessmentById(Integer id) {
+    try {
+      Connection connection = dataSourceConfig.getConnection();
+      PreparedStatement statement = connection.prepareStatement(FIND_EXPERT_ASSESSMENT_BY_ID);
+      statement.setInt(1, id);
+      try (ResultSet resultSet = statement.executeQuery()) {
+        Map<String, Integer> assessment = null;
+        if (resultSet.next()) {
+          assessment = objectMapper.readValue(resultSet.getString("assessment"), Map.class);
+        }
+        return Optional.ofNullable(assessment);
+      }
+    } catch (SQLException e) {
+      throw new ResourceMappingException("Error while finding assessment by id.");
+    }
   }
 
   @Override
@@ -132,7 +206,7 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
       Connection connection = dataSourceConfig.getConnection();
       PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_EMPLOYEE_ID);
       statement.setInt(1, employeeId);
-      try(ResultSet resultSet = statement.executeQuery()) {
+      try (ResultSet resultSet = statement.executeQuery()) {
         return AssessmentRowMapper.mapRows(resultSet);
       }
     } catch (SQLException e) {
@@ -163,7 +237,7 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
       statement.setInt(3, assessment.getManagerAssessment());
       statement.setInt(4, assessment.getFinalAssessment());
 
-      if(assessment.getDateOfAssessment() == null) {
+      if (assessment.getDateOfAssessment() == null) {
         statement.setNull(5, Types.TIMESTAMP);
       } else {
         statement.setTimestamp(5, Timestamp.valueOf(assessment.getDateOfAssessment()));
@@ -180,20 +254,21 @@ public class EmployeeAssessmentRepositoryImpl implements EmployeeAssessmentRepos
   public void create(EmployeeAssessment assessment) {
     try {
       Connection connection = dataSourceConfig.getConnection();
-      PreparedStatement statement = connection.prepareStatement(CREATE, PreparedStatement.RETURN_GENERATED_KEYS);
+      PreparedStatement statement = connection.prepareStatement(CREATE,
+          PreparedStatement.RETURN_GENERATED_KEYS);
       statement.setInt(1, assessment.getOwnAssessment());
       statement.setInt(2, assessment.getExpertAssessment());
       statement.setInt(3, assessment.getManagerAssessment());
       statement.setInt(4, assessment.getFinalAssessment());
 
-      if(assessment.getDateOfAssessment() == null) {
+      if (assessment.getDateOfAssessment() == null) {
         statement.setNull(5, Types.TIMESTAMP);
       } else {
         statement.setTimestamp(5, Timestamp.valueOf(assessment.getDateOfAssessment()));
       }
       statement.setBoolean(6, assessment.isActive());
       statement.executeUpdate();
-      try(ResultSet resultSet = statement.getGeneratedKeys()) {
+      try (ResultSet resultSet = statement.getGeneratedKeys()) {
         resultSet.next();
         assessment.setId(resultSet.getInt(1));
       }

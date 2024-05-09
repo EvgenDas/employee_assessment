@@ -8,7 +8,6 @@ import java.util.List;
 import lombok.SneakyThrows;
 
 public class AssessmentRowMapper {
-
   @SneakyThrows
   public static EmployeeAssessment mapRow(ResultSet resultSet) {
     if(resultSet.next()) {
